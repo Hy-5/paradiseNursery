@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeItem, updateQuantity } from './CartSlice';
 import './CartItem.css';
@@ -9,8 +10,15 @@ const CartItem = ({ onContinueShopping }) => {
   const dispatch = useDispatch();
 
   // Calculate total amount for all products in the cart
-  const calculateTotalAmount = () => {
-  };
+  const calculateTotalAmount = (cartItems) => {
+    console.log(cartItems);
+    if (!Array.isArray(cartItems)) {
+        return 0;
+    }
+    return cartItems.reduce((total, item) => {
+        return total + (item.cost * item.quantity);
+    }, 0);
+};
 
   const handleContinueShopping = (e) => {
    
@@ -37,7 +45,11 @@ const CartItem = ({ onContinueShopping }) => {
 
   // Calculate total cost based on quantity for an item
   const calculateTotalCost = (item) => {
-  };
+    if (!item || typeof item.unitCost !== 'number' || typeof item.quantity !== 'number') {
+        return 0; // Return 0 or handle the error if item data is not valid
+    }
+    return item.unitCost * item.quantity;
+};
 
   return (
     <div className="cart-container">
