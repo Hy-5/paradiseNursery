@@ -13,12 +13,21 @@ const CartItem = ({ onContinueShopping }) => {
   // Calculate total amount for all products in the cart
   const calculateTotalAmount = (cartItems) => {
     if (!Array.isArray(cartItems)) {
-        return 0;
+      return 0;
     }
     return cartItems.reduce((total, item) => {
-        return total + (item.cost * item.quantity);
+      // Extract numeric value from item.cost
+      let cost = item.cost;
+      if (typeof cost === 'string') {
+        cost = cost.replace('$', '');
+        cost = parseInt(cost, 10);
+      }
+      // Ensure quantity is a number
+      let quantity = parseInt(item.quantity, 10) || 1;
+      return total + (cost * quantity);
     }, 0);
-};
+  };
+  
 
 
   const handleContinueShopping = (e) => {
@@ -28,7 +37,7 @@ const CartItem = ({ onContinueShopping }) => {
   };
 
   const handleCheckoutShopping = (e) => {
-    alert('Work in progress');
+    alert('WORK IN PROGRESS');
     };
 
 
@@ -57,7 +66,7 @@ const CartItem = ({ onContinueShopping }) => {
 
   return (
     <div className="cart-container">
-      <h2 style={{ color: 'black' }}>Total Cart Amount: ${calculateTotalAmount()}</h2>
+      <h2 style={{ color: 'black' }}>Total Cart Amount: ${calculateTotalAmount(cart)}</h2>
       <div>
         {cart.map(item => (
           <div className="cart-item" key={item.name}>
