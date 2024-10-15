@@ -12,7 +12,6 @@ const CartItem = ({ onContinueShopping }) => {
 
   // Calculate total amount for all products in the cart
   const calculateTotalAmount = (cartItems) => {
-    console.log(cartItems);
     if (!Array.isArray(cartItems)) {
         return 0;
     }
@@ -23,11 +22,13 @@ const CartItem = ({ onContinueShopping }) => {
 
 
   const handleContinueShopping = (e) => {
-    
+    if (onContinueShopping) {
+        onContinueShopping(e);
+    }
   };
 
   const handleCheckoutShopping = (e) => {
-    alert('Functionality to be added for future reference');
+    alert('Work in progress');
     };
 
 
