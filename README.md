@@ -1,1 +1,1 @@
-# coding-project-template
+# Nursery website (WIP)
